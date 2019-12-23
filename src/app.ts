@@ -1,4 +1,4 @@
-import express, { Application, Request, Response, NextFunction } from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 const expressLayouts = require('express-ejs-layouts');
 const mongoose = require('mongoose');
 const flash = require('connect-flash');
@@ -8,10 +8,10 @@ const passport = require('passport');
 const app = express();
 
 // Passport config
-require('./config/passport')(passport);
+require('../config/passport')(passport);
 
 // DB Config
-const db = require('./config/keys').MongoURI;
+const db = require('../config/keys').MongoURI;
 
 // Connect to Mongo
 mongoose
@@ -51,9 +51,9 @@ app.use(function(req: Request, res: Response, next: NextFunction) {
 });
 
 // Routes
-app.use('/', require('./routes/index'));
-app.use('/users', require('./routes/users'));
+app.use('/', require('../routes/index'));
+app.use('/users', require('../routes/users'));
 
 const PORT = process.env.PORT || 5003;
 
-app.listen(PORT, console.log(`Server started on prot ${PORT}`));
+app.listen(PORT);
