@@ -1,4 +1,4 @@
-const express = require('express');
+import express, { Application, Request, Response, NextFunction } from 'express';
 const expressLayouts = require('express-ejs-layouts');
 const mongoose = require('mongoose');
 const flash = require('connect-flash');
@@ -17,7 +17,7 @@ const db = require('./config/keys').MongoURI;
 mongoose
   .connect(db, { useNewUrlParser: true })
   .then(() => console.log('MongoDB Connected...'))
-  .catch(err => console.log(err));
+  .catch((err: any) => console.log(err));
 
 // EJS
 app.use(expressLayouts);
@@ -43,7 +43,7 @@ app.use(passport.session());
 app.use(flash());
 
 // Global Vars
-app.use(function(req, res, next) {
+app.use(function(req: Request, res: Response, next: NextFunction) {
   res.locals.success_msg = req.flash('success_msg');
   res.locals.error_msg = req.flash('error_msg');
   res.locals.error = req.flash('error');
